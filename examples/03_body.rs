@@ -1,5 +1,4 @@
 use std::env;
-
 use serde::{Deserialize, Serialize};
 use warp::Filter;
 
@@ -7,12 +6,6 @@ use warp::Filter;
 struct Student {
     id: u32,
     name: String,
-}
-
-#[derive(Deserialize, Serialize)]
-struct Employee {
-    name: String,
-    rate: u32,
 }
 
 #[tokio::main]
@@ -26,13 +19,15 @@ async fn main() {
     let routes = warp::post()
         .and(warp::path("students"))
         .and(warp::path::param::<u32>())
+        // 设置请求头 `content-length` 不超过 16 KB
         .and(warp::body::content_length_limit(1024 * 16))
         .and(warp::body::json())
         .map(|id, mut student: Student| {
             student.id = id;
             warp::reply::json(&student)
         });
-    warp::serve(routes).bind(([127, 0, 0, 1], 3000)).await;
+
+    warp::serve(routes).run(([127, 0, 0, 1], 3000)).await;
 }
 // test:
 // POST http://127.0.0.1:3000/students/1
