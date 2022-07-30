@@ -112,4 +112,5 @@ async fn handle_rejection(err: Rejection) -> Result<impl Reply, Infallible> {
 }
 
 // test:
-// GET http://127.0.0.1:3000
+// GET http://127.0.0.1:3000/math/12  header-> div_by: 2
+// POST http://127.0.0.1:3000/math/12  body -> { "denom": 2 }
