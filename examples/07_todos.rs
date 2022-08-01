@@ -15,6 +15,11 @@ async fn main() {
     // 启动服务
     warp::serve(routes).run(([127, 0, 0, 1], 3000)).await;
 }
+// test:
+// GET http://127.0.0.1:3000/todos
+// POST http://127.0.0.1:3000/todos body = {"id" : 1,"text" : "text","completed" : false}
+// PUT http://127.0.0.1:3000/todos/1 body = {"id" : 1,"text" : "123","completed" : true}
+// DELETE http://127.0.0.1:3000/todos/1
 
 mod filters {
     use std::convert::Infallible;
