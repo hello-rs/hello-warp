@@ -1,7 +1,7 @@
 use std::env;
 
 use futures_util::{FutureExt, StreamExt};
-use log::{error, info};
+use log::error;
 use warp::Filter;
 
 #[tokio::main]

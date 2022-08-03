@@ -63,11 +63,12 @@ async fn user_connected(socket: WebSocket, users: Users) {
     // 保存用户信息
     users.write().await.insert(user_id, chan_tx);
     // 处理用户逻辑: 用户收到消息将广播给其他用户
+    println!("??????");
     while let Some(msg) = user_rx.next().await {
         let msg = match msg {
             Ok(msg) => msg,
             Err(err) => {
-                error!("发送消息失败 uid= {},err={}", user_id, err);
+                error!("接收消息失败 uid= {},err={}", user_id, err);
                 break;
             }
         };
